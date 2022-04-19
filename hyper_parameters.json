@@ -1,0 +1,76 @@
+{"cora": 
+ {
+     "dim": 50,
+     "HyLa_fdim": 250,
+     "order": 2,
+     "scale": 0.5,
+     "lr_e": 0.01, 
+     "lr_c": 0.01,
+     "epoch": 100,
+     "quiet": false
+ },
+ "airport":
+ {
+     "dim": 50,
+     "HyLa_fdim": 1000,
+     "order": 2,
+     "scale": 0.01,
+     "lr_e": 0.1, 
+     "lr_c": 0.1,
+     "epoch": 100,
+     "quiet": false
+ },
+ "disease_nc":
+ {
+     "dim": 25,
+     "HyLa_fdim": 500,
+     "order": 2,
+     "scale": 0.1,
+     "lr_e": 0.05, 
+     "lr_c": 0.0001,
+     "epoch": 100,
+     "quiet": false
+ },
+ "pubmed": 
+ {
+     "dim": 50,
+     "HyLa_fdim": 1000,
+     "order": 10,
+     "scale": 0.01,
+     "lr_e": 0.1, 
+     "lr_c": 0.01,
+     "epoch": 200,
+     "quiet": false
+ },
+ "citeseer": 
+ {
+     "dim": 50,
+     "HyLa_fdim": 1000,
+     "order": 5,
+     "scale": 0.1,
+     "lr_e": 0.001, 
+     "lr_c": 0.0001,
+     "epoch": 100,
+     "quiet": false
+ },
+ "reddit": 
+ {
+     "dim": 50,
+     "HyLa_fdim": 1000,
+     "order": 2,
+     "scale": 0.5,
+     "lr_e": 0.1, 
+     "lr_c": 0.001,
+     "epoch": 100,
+     "quiet": false
+ }
+}
+
+
+
+
+
+
+
+
+
