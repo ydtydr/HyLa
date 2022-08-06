@@ -1,0 +1,8 @@
+earn
+trade
+grain
+ship
+money-fx
+acq
+interest
+crude

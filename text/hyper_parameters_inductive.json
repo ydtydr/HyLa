@@ -1,0 +1,98 @@
+{"R8": 
+ {"poincare":
+  {
+     "he_dim": 50,
+     "hyla_dim": 100,
+     "lambda_scale": 0.01,
+     "lr_e": 0.001, 
+     "lr_c": 0.001,
+     "epoch": 200,
+     "quiet": false
+  },
+  "euclidean":
+  {
+     "he_dim": 50,
+     "hyla_dim": 300,
+     "lambda_scale": 0.5,
+     "lr_e": 0.005, 
+     "lr_c": 0.01,
+     "epoch": 200,
+     "quiet": false
+  }
+ },
+ "R52": 
+ {"poincare":
+  {
+     "he_dim": 50,
+     "hyla_dim": 100,
+     "lambda_scale": 0.1,
+     "lr_e": 0.005, 
+     "lr_c": 0.001,
+     "epoch": 200,
+     "quiet": false
+  },
+  "euclidean":
+  {
+     "he_dim": 50,
+     "hyla_dim": 100,
+     "lambda_scale": 0.1,
+     "lr_e": 0.1, 
+     "lr_c": 0.001,
+     "epoch": 200,
+     "quiet": false
+  }
+ },
+ "ohsumed": 
+ {"poincare":
+  {
+     "he_dim": 50,
+     "hyla_dim": 100,
+     "lambda_scale": 0.1,
+     "lr_e": 0.001, 
+     "lr_c": 0.0001,
+     "epoch": 200,
+     "quiet": false
+  },
+  "euclidean":
+  {
+     "he_dim": 50,
+     "hyla_dim": 500,
+     "lambda_scale": 0.01,
+     "lr_e": 0.1,
+     "lr_c": 0.001,
+     "epoch": 200,
+     "quiet": false
+  }
+ },
+ "mr": 
+ {"poincare":
+  {
+     "he_dim": 50,
+     "hyla_dim": 100,
+     "lambda_scale": 0.01
+     "lr_e": 0.005, 
+     "lr_c": 0.001,
+     "epoch": 200,
+     "quiet": false
+  },
+  "euclidean":
+  {
+     "he_dim": 50,
+     "hyla_dim": 100,
+     "lambda_scale": 0.01,
+     "lr_e": 0.005,
+     "lr_c": 0.001,
+     "epoch": 200,
+     "quiet": false
+  }
+ }
+}
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,54 @@
+{"R8": 
+ {
+     "he_dim": 50,
+     "hyla_dim": 100,
+     "order": 2,
+     "lambda_scale": 0.1,
+     "lr_e": 0.01, 
+     "lr_c": 0.001,
+     "epoch": 200,
+     "quiet": false
+ },
+ "R52": 
+ {
+     "he_dim": 50,
+     "hyla_dim": 500,
+     "order": 2,
+     "lambda_scale": 0.1,
+     "lr_e": 0.1, 
+     "lr_c": 0.0001,
+     "epoch": 200,
+     "quiet": false
+ },
+ "ohsumed": 
+ {
+     "he_dim": 50,
+     "hyla_dim": 500,
+     "order": 2,
+     "lambda_scale": 0.1,
+     "lr_e": 0.01, 
+     "lr_c": 0.0001,
+     "epoch": 200,
+     "quiet": false
+ },
+ "mr": 
+ {
+     "he_dim": 30,
+     "hyla_dim": 100,
+     "order": 2,
+     "lambda_scale": 0.1,
+     "lr_e": 0.1, 
+     "lr_c": 0.001,
+     "epoch": 200,
+     "quiet": false
+ }
+}
+
+
+
+
+
+
+
+
+
