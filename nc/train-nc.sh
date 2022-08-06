@@ -5,16 +5,14 @@
 #SBATCH -N 1
 #SBATCH -n 4
 #SBATCH --mem=5000
-#SBATCH -t 120:00:00
+#SBATCH -t 12:00:00
 #SBATCH --partition=gpu  --gres=gpu:1
        
 python3 HyLa.py \
        -manifold poincare \
-       -model laplaNN \
-       -task nc \
+       -model hyla \
+       -he_dim 16 \
        -dataset cora \
-       -optim_type adam \
-       -cmodel sgc -use_feats
-
+       -use_feats
 # 
 # remove -use_feats option for airport, add -inductive option for inductive training on reddit

@@ -94,40 +94,13 @@ def measure_tensor_size(a):
     # return # MB
     return a.element_size() * a.nelement() * 0.000001
 
-
-
-
 # ###################################################
 # data loading
 
 def load_data(args, datapath):
-    if args.task == 'nc':
-        data = load_data_nc(args.dataset, args.use_feats, datapath, args.split_seed)
-    else:
-        data = load_data_lp(args.dataset, args.use_feats, datapath)
-        adj = data['adj_train']
-        if args.task == 'lp':
-            adj_train, train_edges, train_edges_false, val_edges, val_edges_false, test_edges, test_edges_false = mask_edges(
-                    adj, args.val_prop, args.test_prop, args.split_seed
-            )
-            data['adj_train'] = adj_train
-            data['train_edges'], data['train_edges_false'] = train_edges, train_edges_false
-            data['val_edges'], data['val_edges_false'] = val_edges, val_edges_false
-            data['test_edges'], data['test_edges_false'] = test_edges, test_edges_false
-#     data['adj_train_norm'], data['features'] = process(
-#             data['adj_train'], data['features'], args.normalize_adj, args.normalize_feats
-#     )
-#     if args.dataset == 'airport':
-#         data['features'] = augment(data['adj_train'], data['features'])
+    data = load_data_nc(args.dataset, args.use_feats, datapath, args.split_seed)
     adj_n = aug_normalized_adjacency(data['adj_train'])
     data['adj_train'] = sparse_mx_to_torch_sparse_tensor(adj_n)
-#     data['adj_train'] = sparse_mx_to_torch_sparse_tensor(add_self_loop(data['adj_train']))
-#     if sp.isspmatrix(data['features']):
-#         data['features'] = sparse_mx_to_torch_sparse_tensor(data['features'])
-#         features = np.array(data['features'].todense())
-#     features = normalize(features)
-#     data['features'] = torch.Tensor(features)
-
     data['features'] = sparse_mx_to_torch_sparse_tensor(data['features'])
     return data
 
@@ -689,10 +662,10 @@ def parse_index_file(filename):
         index.append(int(line.strip()))
     return index
 
-def load_corpus(dataset_str, feature=False):
+def load_corpus(data_dir, dataset_str, inductive=False):
     """
     Loads input corpus from text/data directory
-
+    
     ind.dataset_str.x => the feature vectors of the training docs as scipy.sparse.csr.csr_matrix object;
     ind.dataset_str.tx => the feature vectors of the test docs as scipy.sparse.csr.csr_matrix object;
     ind.dataset_str.allx => the feature vectors of both labeled and unlabeled training docs/words
@@ -720,18 +693,15 @@ def load_corpus(dataset_str, feature=False):
                 return pkl.load(f)
 
     for p in phases:
-        index_dict[p] = load_pkl("./text/data/ind.{}.{}.x".format(dataset_str, p))
-        label_dict[p] = load_pkl("./text/data/ind.{}.{}.y".format(dataset_str, p))
+        index_dict[p] = load_pkl("{}/ind.{}.{}.x".format(data_dir, dataset_str, p))
+        label_dict[p] = load_pkl("{}/ind.{}.{}.y".format(data_dir, dataset_str, p))
 
-    if feature:
-        adj = load_pkl("./text/data/ind.{}.B.adj".format(dataset_str))
+    if inductive:
+        adj = load_pkl("{}/ind.{}.B.adj".format(data_dir, dataset_str))
         adj = adj.astype(np.float32)
     else:
-        adj = load_pkl("./text/data/ind.{}.BCD.adj".format(dataset_str))
+        adj = load_pkl("{}/ind.{}.BCD.adj".format(data_dir, dataset_str))
         adj = adj.astype(np.float32)
-#         print(adj)
-#         print(adj.shape)
-#         raise
         adj = aug_normalized_adjacency(adj)
 
     return adj, index_dict, label_dict

@@ -7,9 +7,9 @@ import numpy as np
 from .hyla_utils import PoissonKernel, sample_boundary, measure_tensor_size
 
 
-class LaplacianNN(nn.Module):
+class HyLa(nn.Module):
     def __init__(self, manifold, dim, size, HyLa_fdim, scale=0.1, sparse=False, **kwargs):
-        super(LaplacianNN, self).__init__()
+        super(HyLa, self).__init__()
         self.manifold = manifold
         self.lt = manifold.allocate_lt(size, dim, sparse)
         self.manifold.init_weights(self.lt)
@@ -36,9 +36,9 @@ class LaplacianNN(nn.Module):
         }]
     
     
-class EucLaplacianNN(nn.Module):
+class RFF(nn.Module):
     def __init__(self, manifold, dim, size, HyLa_fdim, scale=0.1, sparse=False, **kwargs):
-        super(EucLaplacianNN, self).__init__()
+        super(RFF, self).__init__()
         self.manifold = manifold
         self.lt = manifold.allocate_lt(size, dim, sparse)
         self.manifold.init_weights(self.lt)
@@ -73,79 +73,3 @@ class SGC(nn.Module):
 
     def forward(self, x):
         return self.W(x)
-    
-class GraphConvolution(nn.Module):
-    """
-    A Graph Convolution Layer (GCN)
-    """
-
-    def __init__(self, in_features, out_features, adj, bias=True, use_linear=True):
-        super(GraphConvolution, self).__init__()
-        self.in_features = in_features
-        self.out_features = out_features
-        self.adj = adj
-        self.use_linear = use_linear
-        if use_linear:
-            self.W = nn.Linear(in_features, out_features, bias=bias)
-            self.init()
-
-    def init(self):
-        stdv = 1. / math.sqrt(self.W.weight.size(1))
-        self.W.weight.data.uniform_(-stdv, stdv)
-
-    def forward(self, input):
-#         support = torch.spmm(self.adj.to(input.device), input)
-#         output = self.W(support)
-        ####################
-        if self.use_linear:
-            support = self.W(input)
-        else:
-            support = input
-        output = torch.spmm(self.adj.to(support.device), support)
-#         output = torch.mm(self.adj.to(support.device), support)
-        return output
-
-class GCN(nn.Module):
-    """
-    A Two-layer GCN.
-    """
-    def __init__(self, nfeat, nclass, adj, dropout=0.5):
-        super(GCN, self).__init__()
-        self.layers = []
-        for layer_idx in range(len(nfeat)-1):
-            self.layers.append(GraphConvolution(nfeat[layer_idx], nfeat[layer_idx+1], adj, use_linear=False).cuda())
-#             self.layers.append(GraphConvolution(nfeat[layer_idx], nfeat[layer_idx+1], adj).cuda())
-#         self.gc_class = GraphConvolution(nfeat[-1], nclass, adj).cuda()
-        self.gc_class = GraphConvolution(nfeat[0], nclass, adj, use_linear=True).cuda()
-        self.dropout = dropout
-
-    def forward(self, x, use_relu=True):
-        for layer in self.layers:
-            x = layer(x)
-            if use_relu:
-                x = F.relu(x)
-            x = F.dropout(x, self.dropout, training=self.training)
-        x = self.gc_class(x)
-#         raise
-        return x#[inputs]
-    
-class MLP(nn.Module):
-    def __init__(self, nfeat, nclass, adj, dropout=0.5):
-        super(MLP, self).__init__()
-        self.adj = adj
-        self.layers = []
-        for layer_idx in range(len(nfeat)-1):
-            self.layers.append(nn.Linear(nfeat[layer_idx], nfeat[layer_idx+1]).cuda())
-        self.gc_class = nn.Linear(nfeat[-1], nclass).cuda()
-        self.dropout = dropout
-
-    def forward(self, x, inputs, use_relu=True):
-        for layer in self.layers:
-            x = layer(x)
-            if use_relu:
-                x = F.relu(x)
-#             x = F.dropout(x, self.dropout, training=self.training)
-        x = self.gc_class(x)
-#         output = torch.spmm(self.adj.to(support.device), support)
-        x = torch.mm(self.adj.to(x.device), x)
-        return x[inputs]
