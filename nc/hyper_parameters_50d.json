@@ -58,7 +58,7 @@
      "he_dim": 50,
      "hyla_dim": 1000,
      "order": 2,
-     "lambda_scale": 0.5,
+     "lambda_scale": 0.01,
      "lr_e": 0.1, 
      "lr_c": 0.001,
      "epoch": 100,

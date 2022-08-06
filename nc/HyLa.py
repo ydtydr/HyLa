@@ -140,25 +140,25 @@ def main():
     parser.add_argument('-seed', default=43, type=int, help='random seed')
     parser.add_argument('-sparse', default=True, action='store_true',
                         help='Use sparse gradients for embedding table')
-    parser.add_argument('-quiet', action='store_true', default=True)
+    parser.add_argument('-quiet', action='store_true', default=False)
     parser.add_argument('-lre_type', choices=['scale', 'constant'], default='constant')
     parser.add_argument('-optim_type', choices=['adam', 'sgd'], default='adam', help='optimizer used for the classification SGC model')
     parser.add_argument('-metric', choices=['acc', 'f1'], default='acc', help='what metrics to report')    
     parser.add_argument('-lambda_scale', type=float, default=0.07, help='scale of lambdas when generating HyLa features')
-    parser.add_argument('-inductive', action='store_true', default=True, help='inductive training, used for reddit.')
-    parser.add_argument('-use_feats', action='store_true', default=True, help='whether embed in the feature level, otherwise node level')
+    parser.add_argument('-inductive', action='store_true', default=False, help='inductive training, used for reddit.')
+    parser.add_argument('-use_feats', action='store_true', default=False, help='whether embed in the feature level, otherwise node level')
     opt = parser.parse_args()
     
     ## comment following lines during hyper-parameter tuning
-#     with open(f'{currentdir}/hyper_parameters_{he_dim}d.json',) as f:
-#         hyper_parameters = json.load(f)[opt.dataset]
-#     opt.he_dim = hyper_parameters['he_dim']
-#     opt.hyla_dim = hyper_parameters['hyla_dim']
-#     opt.order = hyper_parameters['order']
-#     opt.lambda_scale = hyper_parameters['lambda_scale']
-#     opt.lr_e = hyper_parameters['lr_e']
-#     opt.lr_c = hyper_parameters['lr_c']
-#     opt.epoch = hyper_parameters['epoch']
+    with open(f'{currentdir}/hyper_parameters_{he_dim}d.json',) as f:
+        hyper_parameters = json.load(f)[opt.dataset]
+    opt.he_dim = hyper_parameters['he_dim']
+    opt.hyla_dim = hyper_parameters['hyla_dim']
+    opt.order = hyper_parameters['order']
+    opt.lambda_scale = hyper_parameters['lambda_scale']
+    opt.lr_e = hyper_parameters['lr_e']
+    opt.lr_c = hyper_parameters['lr_c']
+    opt.epoch = hyper_parameters['epoch']
     
     opt.metric = 'f1' if opt.dataset =='reddit' else 'acc'
     opt.epoch_start = 0
@@ -259,15 +259,15 @@ def main():
         model_f, model_c, data['features'][data['idx_test']], data['labels'][data['idx_test']].to(opt.device), 
         metric = opt.metric)
 #     test_acc_threshold = {'cora': 0, 'disease_nc': 0, 'pubmed': 0, 'citeseer': 0, 'reddit': 0, 'airport': 0}
-    test_acc_threshold = {'cora': 82, 'disease_nc': 80, 'pubmed': 80, 'citeseer': 71, 'reddit': 93.5, 'airport': 80}
-    if test_acc * 100.0 > test_acc_threshold[opt.dataset]:
-        log.info(
-                f'"|| last train_acc": {train_acc*100.0:.2f}%, '
-                f'"|| best train_acc": {train_acc_best*100.0:.2f}%, '
-                f'"|| last val_acc": {val_acc*100.0:.2f}%, '
-                f'"|| best val_acc": {val_acc_best*100.0:.2f}%, '
-                f'"|| test_acc": {test_acc*100.0:.2f}%.'
-            )
+#     test_acc_threshold = {'cora': 82, 'disease_nc': 80, 'pubmed': 80, 'citeseer': 71, 'reddit': 93.5, 'airport': 80}
+#     if test_acc * 100.0 > test_acc_threshold[opt.dataset]:
+    log.info(
+            f'"|| last train_acc": {train_acc*100.0:.2f}%, '
+            f'"|| best train_acc": {train_acc_best*100.0:.2f}%, '
+            f'"|| last val_acc": {val_acc*100.0:.2f}%, '
+            f'"|| best val_acc": {val_acc_best*100.0:.2f}%, '
+            f'"|| test_acc": {test_acc*100.0:.2f}%.'
+        )
 
 if __name__ == '__main__':
     main()
