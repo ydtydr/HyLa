@@ -182,7 +182,7 @@ def main():
     opt.lambda_scale = hyper_parameters['lambda_scale']
     opt.lr_e = hyper_parameters['lr_e']
     opt.lr_c = hyper_parameters['lr_c']
-    opt.epoch = hyper_parameters['epoch']
+    opt.epochs = hyper_parameters['epochs']
     
     opt.metric = 'mr' if opt.dataset =='mr' else 'acc'
     opt.epoch_start = 0

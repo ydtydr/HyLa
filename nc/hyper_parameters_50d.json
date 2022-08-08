@@ -6,7 +6,7 @@
      "lambda_scale": 0.5,
      "lr_e": 0.01, 
      "lr_c": 0.01,
-     "epoch": 100,
+     "epochs": 100,
      "quiet": false
  },
  "airport":
@@ -17,7 +17,7 @@
      "lambda_scale": 0.01,
      "lr_e": 1.0, 
      "lr_c": 0.01,
-     "epoch": 100,
+     "epochs": 100,
      "quiet": false
  },
  "disease_nc":
@@ -28,7 +28,7 @@
      "lambda_scale": 0.01,
      "lr_e": 0.01, 
      "lr_c": 0.0001,
-     "epoch": 100,
+     "epochs": 100,
      "quiet": false
  },
  "pubmed": 
@@ -39,7 +39,7 @@
      "lambda_scale": 0.01,
      "lr_e": 0.1, 
      "lr_c": 0.01,
-     "epoch": 100,
+     "epochs": 100,
      "quiet": false
  },
  "citeseer": 
@@ -50,7 +50,7 @@
      "lambda_scale": 0.1,
      "lr_e": 0.001, 
      "lr_c": 0.001,
-     "epoch": 100,
+     "epochs": 100,
      "quiet": false
  },
  "reddit": 
@@ -61,7 +61,7 @@
      "lambda_scale": 0.01,
      "lr_e": 0.1, 
      "lr_c": 0.001,
-     "epoch": 100,
+     "epochs": 100,
      "quiet": false
  }
 }

@@ -6,7 +6,7 @@
      "lambda_scale": 0.01,
      "lr_e": 0.001, 
      "lr_c": 0.001,
-     "epoch": 200,
+     "epochs": 200,
      "quiet": false
   },
   "euclidean":
@@ -16,7 +16,7 @@
      "lambda_scale": 0.5,
      "lr_e": 0.005, 
      "lr_c": 0.01,
-     "epoch": 200,
+     "epochs": 200,
      "quiet": false
   }
  },
@@ -28,7 +28,7 @@
      "lambda_scale": 0.1,
      "lr_e": 0.005, 
      "lr_c": 0.001,
-     "epoch": 200,
+     "epochs": 200,
      "quiet": false
   },
   "euclidean":
@@ -38,7 +38,7 @@
      "lambda_scale": 0.1,
      "lr_e": 0.1, 
      "lr_c": 0.001,
-     "epoch": 200,
+     "epochs": 200,
      "quiet": false
   }
  },
@@ -50,7 +50,7 @@
      "lambda_scale": 0.1,
      "lr_e": 0.001, 
      "lr_c": 0.0001,
-     "epoch": 200,
+     "epochs": 200,
      "quiet": false
   },
   "euclidean":
@@ -60,7 +60,7 @@
      "lambda_scale": 0.01,
      "lr_e": 0.1,
      "lr_c": 0.001,
-     "epoch": 200,
+     "epochs": 200,
      "quiet": false
   }
  },
@@ -72,7 +72,7 @@
      "lambda_scale": 0.01
      "lr_e": 0.005, 
      "lr_c": 0.001,
-     "epoch": 200,
+     "epochs": 200,
      "quiet": false
   },
   "euclidean":
@@ -82,7 +82,7 @@
      "lambda_scale": 0.01,
      "lr_e": 0.005,
      "lr_c": 0.001,
-     "epoch": 200,
+     "epochs": 200,
      "quiet": false
   }
  }

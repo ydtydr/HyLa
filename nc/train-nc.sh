@@ -13,6 +13,6 @@ python3 HyLa.py \
        -model hyla \
        -he_dim 16 \
        -dataset cora \
-       -use_feats
+       -use_feats -tuned
 # 
 # remove -use_feats option for airport, add -inductive option for inductive training on reddit

@@ -65,6 +65,8 @@ def train(model_f,
         optimizer_f.zero_grad()
         optimizer_c.zero_grad()
         HyLa_features = model_f()
+        print('magnitude', HyLa_features.data.mean(0).mean(), HyLa_features.data.mean(0).min(), HyLa_features.data.mean(0).max())
+#         raise
         HyLa_features = torch.mm(data['features_train'].to(opt.device), HyLa_features)
         predictions = model_c(HyLa_features)
         del HyLa_features
@@ -147,18 +149,21 @@ def main():
     parser.add_argument('-lambda_scale', type=float, default=0.07, help='scale of lambdas when generating HyLa features')
     parser.add_argument('-inductive', action='store_true', default=False, help='inductive training, used for reddit.')
     parser.add_argument('-use_feats', action='store_true', default=False, help='whether embed in the feature level, otherwise node level')
+    parser.add_argument('-tuned', action='store_true', default=False, help='whether use tuned hyper-parameters')
     opt = parser.parse_args()
     
-    ## comment following lines during hyper-parameter tuning
-    with open(f'{currentdir}/hyper_parameters_{opt.he_dim}d.json',) as f:
-        hyper_parameters = json.load(f)[opt.dataset]
-    opt.he_dim = hyper_parameters['he_dim']
-    opt.hyla_dim = hyper_parameters['hyla_dim']
-    opt.order = hyper_parameters['order']
-    opt.lambda_scale = hyper_parameters['lambda_scale']
-    opt.lr_e = hyper_parameters['lr_e']
-    opt.lr_c = hyper_parameters['lr_c']
-    opt.epoch = hyper_parameters['epoch']
+    if opt.tuned:
+#         with open(f'{currentdir}/hyper_parameters_{opt.he_dim}d.json',) as f:
+#             hyper_parameters = json.load(f)[opt.dataset]
+        with open(f'{currentdir}/hyper_parameters_{opt.he_dim}d_explore.json',) as f:
+            hyper_parameters = json.load(f)[opt.dataset]
+        opt.he_dim = hyper_parameters['he_dim']
+        opt.hyla_dim = hyper_parameters['hyla_dim']
+        opt.order = hyper_parameters['order']
+        opt.lambda_scale = hyper_parameters['lambda_scale']
+        opt.lr_e = hyper_parameters['lr_e']
+        opt.lr_c = hyper_parameters['lr_c']
+        opt.epochs = hyper_parameters['epochs']
     
     opt.metric = 'f1' if opt.dataset =='reddit' else 'acc'
     opt.epoch_start = 0
