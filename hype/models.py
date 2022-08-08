@@ -23,8 +23,7 @@ class HyLa(nn.Module):
             e_all = self.manifold.normalize(self.lt.weight)
         PsK = PoissonKernel(e_all, self.boundary.to(e_all.device))
         angles = self.Lambdas.to(e_all.device)/2.0 * torch.log(PsK)
-#         eigs = torch.cos(angles + self.bias.to(e_all.device)) * torch.sqrt(PsK)**(self.dim-1)
-        eigs = torch.relu(angles + self.bias.to(e_all.device)) * torch.sqrt(PsK)**(self.dim-1)
+        eigs = torch.cos(angles + self.bias.to(e_all.device)) * torch.sqrt(PsK)**(self.dim-1)
         return eigs
     
     def optim_params(self):
