@@ -150,7 +150,7 @@ def main():
     opt = parser.parse_args()
     
     ## comment following lines during hyper-parameter tuning
-    with open(f'{currentdir}/hyper_parameters_{he_dim}d.json',) as f:
+    with open(f'{currentdir}/hyper_parameters_{opt.he_dim}d.json',) as f:
         hyper_parameters = json.load(f)[opt.dataset]
     opt.he_dim = hyper_parameters['he_dim']
     opt.hyla_dim = hyper_parameters['hyla_dim']
