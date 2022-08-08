@@ -65,8 +65,6 @@ def train(model_f,
         optimizer_f.zero_grad()
         optimizer_c.zero_grad()
         HyLa_features = model_f()
-        print('magnitude', HyLa_features.data.mean(0).mean(), HyLa_features.data.mean(0).min(), HyLa_features.data.mean(0).max())
-#         raise
         HyLa_features = torch.mm(data['features_train'].to(opt.device), HyLa_features)
         predictions = model_c(HyLa_features)
         del HyLa_features
@@ -153,9 +151,7 @@ def main():
     opt = parser.parse_args()
     
     if opt.tuned:
-#         with open(f'{currentdir}/hyper_parameters_{opt.he_dim}d.json',) as f:
-#             hyper_parameters = json.load(f)[opt.dataset]
-        with open(f'{currentdir}/hyper_parameters_{opt.he_dim}d_explore.json',) as f:
+        with open(f'{currentdir}/hyper_parameters_{opt.he_dim}d.json',) as f:
             hyper_parameters = json.load(f)[opt.dataset]
         opt.he_dim = hyper_parameters['he_dim']
         opt.hyla_dim = hyper_parameters['hyla_dim']
